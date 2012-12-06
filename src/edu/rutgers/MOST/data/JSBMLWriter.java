@@ -52,8 +52,10 @@ public class JSBMLWriter implements TreeModelListener{
 	public SReactions allReacts;
 	public int level;
 	public int version;
-	public Map<Integer, SBMLMetabolite> mapping;
+	public Map<Integer, SBMLMetabolite> metabolitesMap;
+	public Map<String, Species> speciesMap;
 	public Map<String,Compartment> compartments;
+	public Map<String,SpeciesReference> speciesRefMap;
 	
 	
 	/**
@@ -114,7 +116,14 @@ public class JSBMLWriter implements TreeModelListener{
 	}
 	
 	public JSBMLWriter() {
-		mapping = new HashMap();
+		metabolitesMap = new HashMap();
+		speciesMap = new HashMap();
+		speciesRefMap = new HashMap();
+	}
+	
+	public void metaMap() {
+		
+		
 	}
 	
 	public void create() throws Exception {
@@ -243,7 +252,7 @@ public class JSBMLWriter implements TreeModelListener{
 				}
 				
 				this.allMetabolites.add(curMeta);
-				mapping.put(i, curMeta);
+				metabolitesMap.put(i, curMeta);
 				
 			}
 			
@@ -286,10 +295,18 @@ public class JSBMLWriter implements TreeModelListener{
 				
 				
 				Species curSpec = model.createSpecies(mAbrv, compartment);
+				
 				curSpec.setName(mName);
 				//curSpec.setCharge(charge);
 				
 				allSpecies.add(curSpec);
+				speciesMap.put(mName, curSpec);
+				System.out.println(mName);
+				//SpeciesReference curSpecRef = new SpeciesReference(); //TODO: figure spec ref
+				
+				//curSpecRef.setSpecies(curSpec);
+				//curSpecRef.setId(mName);
+				//speciesRefMap.put(mName, curSpecRef);
 			}
 			
 		}
@@ -450,26 +467,37 @@ public class JSBMLWriter implements TreeModelListener{
 				ArrayList<ModelProduct> curProducts = prFactory.getProductsByReactionId(cur.getId(), sourceType, databaseName);
 				
 				for (ModelReactant curReactant : curReactants) {
-					SpeciesReference curSpec = new SpeciesReference();
+					SpeciesReference curSpec = new SpeciesReference(); //TODO: Figure spec
 					SBMLReactant curR = (SBMLReactant) curReactant;
 					
 					int inId = curR.getMetaboliteId();
 					SBMLMetabolite sMReactant = (SBMLMetabolite) mFactory.getMetaboliteById(inId, sourceType, databaseName);
-					
 					String reactAbbrv = sMReactant.getMetaboliteAbbreviation();
+					//System.out.println(reactAbbrv);
+					//SpeciesReference curSpec = speciesRefMap.get(reactAbbrv);
+					
+					curSpec.setSpecies(speciesMap.get(reactAbbrv)); 
+					curSpec.setName(reactAbbrv);
 										
-					curSpec.setId(reactAbbrv);
+					//curSpec.setId(reactAbbrv);
 					curSpec.setStoichiometry(curR.getStoic());
 					
 					curSpec.setLevel(level);
 					curSpec.setVersion(version);
+					//curReact.setLevel(level);
+					//curReact.setVersion(version);
+					
 					curReact.addReactant(curSpec);
 				}
 				
 				for (ModelProduct curProduct : curProducts) {
 					SpeciesReference curSpec = new SpeciesReference();
 					SBMLProduct curP = (SBMLProduct) curProduct;
-					curSpec.setId(curP.getMetaboliteAbbreviation());
+					String mAbbrv = curP.getMetaboliteAbbreviation();
+					//SpeciesReference curSpec = speciesRefMap.get(mAbbrv);
+					curSpec.setSpecies(speciesMap.get(mAbbrv));
+					
+					curSpec.setName(mAbbrv);
 					curSpec.setStoichiometry(curP.getStoic());
 					curSpec.setLevel(level);
 					curSpec.setVersion(version);
@@ -522,7 +550,7 @@ public class JSBMLWriter implements TreeModelListener{
 				
 				//law.setMath(math)addNamespace("http://www.w3.org/1998/Math/MathML");
 								
-				curReact.setKineticLaw(law);
+				//curReact.setKineticLaw(law);
 			}
 			
 		}
