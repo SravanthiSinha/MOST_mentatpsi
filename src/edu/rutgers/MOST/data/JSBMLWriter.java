@@ -295,8 +295,8 @@ public class JSBMLWriter implements TreeModelListener{
 				
 				
 				Species curSpec = model.createSpecies(mAbrv, compartment);
-				
-				curSpec.setName(mName);
+				curSpec.setId(mAbrv);
+				curSpec.setName(mAbrv);
 				//curSpec.setCharge(charge);
 				
 				allSpecies.add(curSpec);
@@ -476,8 +476,8 @@ public class JSBMLWriter implements TreeModelListener{
 					//System.out.println(reactAbbrv);
 					//SpeciesReference curSpec = speciesRefMap.get(reactAbbrv);
 					
-					curSpec.setSpecies(speciesMap.get(reactAbbrv)); 
-					curSpec.setName(reactAbbrv);
+					curSpec.setSpecies(reactAbbrv); 
+					//curSpec.setName(reactAbbrv);
 										
 					//curSpec.setId(reactAbbrv);
 					curSpec.setStoichiometry(curR.getStoic());
@@ -495,9 +495,9 @@ public class JSBMLWriter implements TreeModelListener{
 					SBMLProduct curP = (SBMLProduct) curProduct;
 					String mAbbrv = curP.getMetaboliteAbbreviation();
 					//SpeciesReference curSpec = speciesRefMap.get(mAbbrv);
-					curSpec.setSpecies(speciesMap.get(mAbbrv));
+					curSpec.setSpecies(mAbbrv);
 					
-					curSpec.setName(mAbbrv);
+					//curSpec.setName(mAbbrv);
 					curSpec.setStoichiometry(curP.getStoic());
 					curSpec.setLevel(level);
 					curSpec.setVersion(version);
