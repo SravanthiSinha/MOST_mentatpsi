@@ -38,6 +38,7 @@ import org.sbml.jsbml.Unit;
 import org.sbml.jsbml.Unit.Kind;
 import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.xml.XMLAttributes;
+import org.sbml.jsbml.xml.XMLNamespaces;
 import org.sbml.jsbml.xml.XMLNode;
 
 
@@ -167,6 +168,7 @@ public class JSBMLWriter implements TreeModelListener{
 		second.setExponent(-1);
 		
 		mmolgh.setName("mmol_per_gDW_per_hr");
+		mmolgh.setId("mmol_per_gDW_per_hr");
 		mmolgh.setLevel(level);
 		mmolgh.setVersion(version);
 		
@@ -437,6 +439,7 @@ public class JSBMLWriter implements TreeModelListener{
 				law.addLocalParameter(oParam);
 				
 				fParam.setUnits(uD);
+				//fParam.setUnits(unitStr);
 				fParam.setValue(fluxValue);
 				law.addLocalParameter(fParam);
 				
@@ -474,7 +477,9 @@ public class JSBMLWriter implements TreeModelListener{
 				XMLNode pAssoc = new XMLNode();
 				XMLAttributes gAssocA = new XMLAttributes();
 				gAssocA.add("GENE_ASSOCIATION:", geneAssoc);
-				
+				//XMLNamespaces nSpace = new XMLNameSpaces();
+				//nSpace.add(uri, prefix)
+				//gAssoc.setNamespaces("html:p");
 				
 				gAssoc.setAttributes(gAssocA);
 				
