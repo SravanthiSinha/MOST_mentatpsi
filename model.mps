@@ -106,7 +106,6 @@ COLUMNS
     9         R28       -1
     9         R49       -1
     9         R53       1
-    10        OBJ       -1
     10        R6        0.8977
     10        R10       2.8328
     10        R12       -55.703
@@ -373,16 +372,21 @@ BOUNDS
  UP BND1      4         999999
  LO BND1      5         -999999
  UP BND1      5         999999
+ LO BND1      6         -999999
  UP BND1      6         999999
  LO BND1      7         -999999
  UP BND1      7         999999
- FX BND1      8         7.6
+ LO BND1      8         -999999
+ UP BND1      8         999999
  LO BND1      9         -999999
  UP BND1      9         999999
+ LO BND1      10        -999999
  UP BND1      10        999999
  LO BND1      11        -999999
  UP BND1      11        999999
+ LO BND1      12        -999999
  UP BND1      12        999999
+ LO BND1      13        -999999
  UP BND1      13        999999
  LO BND1      14        -999999
  UP BND1      14        999999
@@ -390,74 +394,101 @@ BOUNDS
  UP BND1      15        999999
  LO BND1      16        -999999
  UP BND1      16        999999
+ LO BND1      17        -999999
  UP BND1      17        999999
+ LO BND1      18        -999999
  UP BND1      18        999999
  LO BND1      19        -999999
  UP BND1      19        999999
+ LO BND1      20        -999999
  UP BND1      20        999999
+ LO BND1      21        -999999
  UP BND1      21        999999
+ LO BND1      22        -999999
  UP BND1      22        999999
- LO BND1      23        -10
+ LO BND1      23        -999999
  UP BND1      23        999999
  LO BND1      24        -999999
  UP BND1      24        999999
  LO BND1      25        -999999
  UP BND1      25        999999
+ LO BND1      26        -999999
  UP BND1      26        999999
  LO BND1      27        -999999
  UP BND1      27        999999
  LO BND1      28        -999999
  UP BND1      28        999999
+ LO BND1      29        -999999
  UP BND1      29        999999
+ LO BND1      30        -999999
  UP BND1      30        999999
  LO BND1      31        -999999
  UP BND1      31        999999
+ LO BND1      32        -999999
  UP BND1      32        999999
  LO BND1      33        -999999
  UP BND1      33        999999
+ LO BND1      34        -999999
  UP BND1      34        999999
  LO BND1      35        -999999
  UP BND1      35        999999
+ LO BND1      36        -999999
  UP BND1      36        999999
  LO BND1      37        -999999
  UP BND1      37        999999
  LO BND1      38        -999999
  UP BND1      38        999999
+ LO BND1      39        -999999
  UP BND1      39        999999
+ LO BND1      40        -999999
  UP BND1      40        999999
  LO BND1      41        -999999
  UP BND1      41        999999
  LO BND1      42        -999999
  UP BND1      42        999999
+ LO BND1      43        -999999
  UP BND1      43        999999
  LO BND1      44        -999999
  UP BND1      44        999999
+ LO BND1      45        -999999
  UP BND1      45        999999
  LO BND1      46        -999999
  UP BND1      46        999999
+ LO BND1      47        -999999
  UP BND1      47        999999
+ LO BND1      48        -999999
  UP BND1      48        999999
+ LO BND1      49        -999999
  UP BND1      49        999999
+ LO BND1      50        -999999
  UP BND1      50        999999
  LO BND1      51        -999999
  UP BND1      51        999999
+ LO BND1      52        -999999
  UP BND1      52        999999
+ LO BND1      53        -999999
  UP BND1      53        999999
+ LO BND1      54        -999999
  UP BND1      54        999999
  LO BND1      55        -999999
  UP BND1      55        999999
  LO BND1      56        -999999
  UP BND1      56        999999
+ LO BND1      57        -999999
  UP BND1      57        999999
  LO BND1      58        -999999
  UP BND1      58        999999
  LO BND1      59        -999999
  UP BND1      59        999999
+ LO BND1      60        -999999
  UP BND1      60        999999
+ LO BND1      61        -999999
  UP BND1      61        999999
+ LO BND1      62        -999999
  UP BND1      62        999999
  LO BND1      63        -999999
  UP BND1      63        999999
+ LO BND1      64        -999999
  UP BND1      64        999999
  LO BND1      65        -999999
  UP BND1      65        999999
@@ -465,8 +496,11 @@ BOUNDS
  UP BND1      66        999999
  LO BND1      67        -999999
  UP BND1      67        999999
+ LO BND1      68        -999999
  UP BND1      68        999999
+ LO BND1      69        -999999
  UP BND1      69        999999
+ LO BND1      70        -999999
  UP BND1      70        999999
  LO BND1      71        -999999
  UP BND1      71        999999
@@ -474,6 +508,7 @@ BOUNDS
  UP BND1      72        999999
  LO BND1      73        -999999
  UP BND1      73        999999
+ LO BND1      74        -999999
  UP BND1      74        999999
  LO BND1      75        -999999
  UP BND1      75        999999

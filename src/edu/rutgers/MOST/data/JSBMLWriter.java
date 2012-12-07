@@ -37,6 +37,7 @@ import org.sbml.jsbml.SpeciesReference;
 import org.sbml.jsbml.Unit;
 import org.sbml.jsbml.Unit.Kind;
 import org.sbml.jsbml.UnitDefinition;
+import org.sbml.jsbml.xml.XMLAttributes;
 import org.sbml.jsbml.xml.XMLNode;
 
 
@@ -384,6 +385,10 @@ public class JSBMLWriter implements TreeModelListener{
 			String unitStr = "mmol_per_gDW_per_hr";
 			UnitDefinition uD = model.getUnitDefinition(unitStr);
 			
+			ASTNode math = new ASTNode();
+			math.setName("FLUX_VALUE");
+			
+			
 			for (SBMLReaction cur : allReactions) {
 				
 				String id = cur.getReactionAbbreviation();
@@ -438,6 +443,7 @@ public class JSBMLWriter implements TreeModelListener{
 				rParam.setValue(reducCost);
 				law.addLocalParameter(rParam);
 				
+				law.addDeclaredNamespace("FLUX_VALUE", "http://www.w3.org/1998/Math/MathML");
 				
 				
 				//Parameter ubound = new Parameter();
@@ -464,11 +470,18 @@ public class JSBMLWriter implements TreeModelListener{
 				String subSystem = cur.getMeta3();
 				String proteinClass = cur.getMeta4();
 				
-				
-				
-				
 				XMLNode gAssoc = new XMLNode();
 				XMLNode pAssoc = new XMLNode();
+				XMLAttributes gAssocA = new XMLAttributes();
+				gAssocA.add("GENE_ASSOCIATION:", geneAssoc);
+				
+				
+				gAssoc.setAttributes(gAssocA);
+				
+				curReact.setNotes(gAssoc);
+				
+				
+				
 				
 				
 				//node.clearAttributes();
@@ -537,6 +550,7 @@ public class JSBMLWriter implements TreeModelListener{
 				//curReact.addNamespace("html:p");
 				//curReact.appendNotes(attr);
 				
+				law.setMath(math);
 				curReact.setKineticLaw(law);
 				
 				//curReact.setNotes(attr.toString());
