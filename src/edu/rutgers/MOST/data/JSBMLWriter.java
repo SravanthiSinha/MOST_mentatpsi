@@ -364,6 +364,15 @@ public class JSBMLWriter implements TreeModelListener{
 			ReactantFactory reFactory = new ReactantFactory();
 			ProductFactory prFactory = new ProductFactory();
 			
+			LocalParameter lParam = new LocalParameter("LOWER_BOUND");
+			LocalParameter uParam = new LocalParameter("UPPER_BOUND");
+			LocalParameter oParam = new LocalParameter("OBJECTIVE_COEFFICIENT");
+			LocalParameter fParam = new LocalParameter("FLUX_VALUE");
+			LocalParameter rParam = new LocalParameter("REDUCED_COST");
+			
+			String unitStr = "mmol_per_gDW_per_hr";
+			UnitDefinition uD = model.getUnitDefinition(unitStr);
+			
 			for (SBMLReaction cur : allReactions) {
 				
 				String id = cur.getReactionAbbreviation();
@@ -383,37 +392,46 @@ public class JSBMLWriter implements TreeModelListener{
 				
 				
 				Boolean reversible = Boolean.valueOf(cur.getReversible());
-				String lowerBound = String.valueOf(cur.getLowerBound()); 
-				String upperBound = String.valueOf(cur.getUpperBound()); 
-				String objectCoeff = String.valueOf(cur.getBiologicalObjective());
-				String fluxValue = String.valueOf(cur.getFluxValue()); 
-				String reducCost = "0.000000"; //TODO Find proper value
+				Double lowerBound = cur.getLowerBound(); 
+				Double upperBound = cur.getUpperBound(); 
+				Double objectCoeff = cur.getBiologicalObjective();
+				Double fluxValue = cur.getFluxValue(); 
+				Double reducCost = 0.000000; //TODO Find proper value
 				
 				
 				
 				
-				ArrayList<Parameter> parameters= new ArrayList();
+				//ArrayList<Parameter> parameters= new ArrayList();
 				
-				Parameter lbound = new Parameter();
-				lbound.setId("LOWER_BOUND");
-				lbound.setValue(lowerBound);
-				lbound.setUnits("mmol_per_gDW_per_hr");
-				parameters.add(lbound);
+				KineticLaw law = new KineticLaw();
 				
-				
-				Parameter ubound = new Parameter();
-				ubound.setId("UPPER_BOUND");
-				ubound.setValue(upperBound);
-				ubound.setUnits("mmol_per_gDW_per_hr");
-				parameters.add(ubound);
+				//Parameter lbound = new Parameter();
+				lParam.setUnits(uD);
+				lParam.setValue(lowerBound);
+				law.addLocalParameter(lParam);
 				
 				
-				Parameter objCoeff = new Parameter();
-				objCoeff.setId("OBJECTIVE_COEFFICIENT");
-				objCoeff.setValue(objectCoeff);
-				parameters.add(objCoeff);
+				
+				//Parameter ubound = new Parameter();
+				uParam.setUnits(uD);
+				uParam.setValue(upperBound);
+				law.addLocalParameter(uParam);
+				
+				oParam.setValue(objectCoeff);
+				law.addLocalParameter(oParam);
+				
+				fParam.setUnits(uD);
+				fParam.setValue(fluxValue);
+				law.addLocalParameter(fParam);
+				
+				rParam.setValue(reducCost);
+				law.addLocalParameter(rParam);
+				
+				
+				
+				//Parameter ubound = new Parameter();
 								
-				
+				/*
 				Parameter fluxVal = new Parameter();
 				fluxVal.setId("FLUX_VALUE");
 				fluxVal.setValue(fluxValue);
@@ -424,7 +442,7 @@ public class JSBMLWriter implements TreeModelListener{
 				redCost.setValue(reducCost);
 				redCost.setId("REDUCED_COST");
 				parameters.add(redCost);
-				
+				*/
 				
 				Reaction curReact = model.createReaction(id);
 				curReact.setName(name);
@@ -508,6 +526,7 @@ public class JSBMLWriter implements TreeModelListener{
 				//curReact.addNamespace("html:p");
 				//curReact.appendNotes(attr);
 				
+				curReact.setKineticLaw(law);
 				
 				//curReact.setNotes(attr.toString());
 				
@@ -519,18 +538,17 @@ public class JSBMLWriter implements TreeModelListener{
 				
 				//"http://www.w3.org/1998/Math/MathML"
 				
-				KineticLaw law = new KineticLaw();
 				
 				
 				
 				
+				/*
 				
 				for (Parameter param : parameters) {
 					String curId = param.getId();
 					String value = param.getValue();
 					String units = param.getUnits();
 					
-					LocalParameter lParam = new LocalParameter(curId);
 					
 					
 					lParam.setId(curId);
@@ -543,8 +561,9 @@ public class JSBMLWriter implements TreeModelListener{
 						lParam.setUnits(units);
 					}
 					
-					law.addLocalParameter(lParam);
+					//law.addLocalParameter(lParam);
 				}
+				*/
 				
 				//ASTNode mathml = new ASTNode();
 				
