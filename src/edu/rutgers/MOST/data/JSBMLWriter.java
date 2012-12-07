@@ -127,7 +127,7 @@ public class JSBMLWriter implements TreeModelListener{
 	}
 	
 	public void create() throws Exception {
-		level = 2;
+		level = 3;
 		version = 1;
 		SBMLDocument doc = new SBMLDocument(level, version);
 		
@@ -144,24 +144,35 @@ public class JSBMLWriter implements TreeModelListener{
 		
 		Unit mole = new Unit();
 		mole.setKind(Kind.MOLE);
+		mole.setLevel(level);
 		mole.setScale(-3);
+		mole.setVersion(version);
 		
 		Unit gram = new Unit();
 		gram.setKind(Kind.GRAM);
+		gram.setLevel(level);
+		gram.setVersion(version);
+		//gram.setLevel(3);
 		gram.setExponent(-1);
 		
 		Unit second = new Unit();
 		second.setKind(Kind.SECOND);
+		second.setLevel(level);
+		second.setMultiplier(.00027777);
+		second.setVersion(version);
+		
+		//second.setVersion(version);
 		//second.setMultiplier(.00027777);
 		second.setExponent(-1);
 		
 		mmolgh.setName("mmol_per_gDW_per_hr");
+		mmolgh.setLevel(level);
+		mmolgh.setVersion(version);
 		
 		mmolgh.addUnit(mole);
 		mmolgh.addUnit(gram);
 		mmolgh.addUnit(second);
-		mmolgh.setLevel(level);
-		mmolgh.setVersion(version);
+		
 		
 		model.addUnitDefinition(mmolgh);
 		
